@@ -25,3 +25,9 @@ variable "management-vm-size" {
 variable "DEFAULT_SSHKEY" {
   description = "The public SSH key for the management VM."
 }
+
+variable "management-nsg-inbound-rules" {
+  description = "Inbound ports for the management NSG."
+  type        = list(any)
+  default     = ["22", "80"]
+}

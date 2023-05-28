@@ -28,11 +28,11 @@ resource "azurerm_subnet" "management-subnet" {
 
 # Creates the management VM and attached NIC.
 module "management-vm" {
-  source            = "./modules/vm"
-  vm-name           = join("-", [var.project-name, "management-VM"])
-  vm-resource-group = azurerm_resource_group.project-resource-group.name
-  vm-location       = var.deployment-location
-  vm-public-key     = var.DEFAULT_SSHKEY
-  vm-size           = var.management-vm-size
-  vm-subnet-id      = azurerm_subnet.management-subnet.id
+  source          = "./modules/vm"
+  vm-name         = join("-", [var.project-name, "management-VM"])
+  resource-group  = azurerm_resource_group.project-resource-group.name
+  deploy-location = var.deployment-location
+  vm-public-key   = var.DEFAULT_SSHKEY
+  vm-size         = var.management-vm-size
+  subnet-id       = azurerm_subnet.management-subnet.id
 }

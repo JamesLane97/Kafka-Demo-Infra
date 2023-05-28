@@ -3,13 +3,13 @@ variable "vm-name" {
   type        = string
 }
 
-variable "vm-resource-group" {
+variable "resource-group" {
   description = "The resource group which the VM will belong to."
   type        = string
 }
 
-variable "vm-location" {
-  description = "Location for the VM."
+variable "deploy-location" {
+  description = "The geological location for the VM."
   type        = string
 }
 
@@ -24,7 +24,7 @@ variable "vm-size" {
 
 }
 
-variable "vm-subnet-id" {
-  description = "value"
+variable "subnet-id" {
+  description = "The ID of the subnet the VMs NIC will be associated with."
   type        = string
 }
