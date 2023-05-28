@@ -13,6 +13,11 @@ variable "vm-location" {
   type        = string
 }
 
+variable "vm-public-key" {
+  description = "Public key for SSH."
+  type        = string
+}
+
 variable "vm-size" {
   description = "The machine size for the VM."
   type        = string

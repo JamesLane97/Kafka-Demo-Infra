@@ -11,15 +11,20 @@ resource "azurerm_network_interface" "vm-nic" {
 }
 
 resource "azurerm_linux_virtual_machine" "vm" {
-  name                  = var.vm-name
-  resource_group_name   = var.vm-resource-group
-  location              = var.vm-location
-  size                  = var.vm-size
-  admin_username        = "adminuser"
-  network_interface_ids = [azurerm_network_interface.vm-nic.id]
+  name                            = var.vm-name
+  resource_group_name             = var.vm-resource-group
+  location                        = var.vm-location
+  size                            = var.vm-size
+  network_interface_ids           = [azurerm_network_interface.vm-nic.id]
+  admin_username                  = "adminuser"
+  disable_password_authentication = true
+  admin_ssh_key {
+    username   = "adminuser"
+    public_key = var.vm-public-key
+  }
 
   os_disk {
-    name                 = "panel-os-disk"
+    name                 = join("-", [var.vm-name, "OS"])
     caching              = "ReadWrite"
     storage_account_type = "Standard_LRS"
   }

@@ -32,6 +32,7 @@ module "management-vm" {
   vm-name           = join("-", [var.project-name, "management-vm"])
   vm-resource-group = azurerm_resource_group.project-resource-group.name
   vm-location       = var.deployment-location
+  vm-public-key     = var.DEFAULT_SSHKEY
   vm-size           = var.management-vm-size
   vm-subnet-id      = azurerm_subnet.management-subnet.id
 }

@@ -21,3 +21,7 @@ variable "management-vm-size" {
   type        = string
   default     = "Standard_B1s"
 }
+
+variable "DEFAULT_SSHKEY" {
+  description = "The public SSH key for the management VM."
+}
