@@ -19,4 +19,5 @@ resource "azurerm_network_security_rule" "nsg-inbound-tcp-rules" {
   destination_port_range      = element(var.inbound-tcp-rules, count.index)
   source_address_prefix       = "*"
   destination_address_prefix  = "*"
+  depends_on                  = [azurerm_network_security_group.nsg]
 }
