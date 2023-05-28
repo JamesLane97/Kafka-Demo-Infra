@@ -5,6 +5,7 @@ resource "azurerm_network_security_group" "nsg" {
   location            = var.deploy-location
 }
 
+# Creates an inbound TCP rule for each port provided by the deployments variables.
 resource "azurerm_network_security_rule" "nsg-inbound-tcp-rules" {
   count                       = length(var.inbound-tcp-rules)
   network_security_group_name = var.nsg-name

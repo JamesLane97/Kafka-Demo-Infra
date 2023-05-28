@@ -26,6 +26,15 @@ resource "azurerm_subnet" "management-subnet" {
   address_prefixes     = ["10.0.2.0/25"]
 }
 
+# Creates a NSG with inbound rules for the management subnet.
+module "management-nsg" {
+  source            = "./modules/nsg"
+  nsg-name          = join("-", [var.var.project-name, "management-NSG"])
+  resource-group    = azurerm_resource_group.project-resource-group.name
+  deploy-location   = var.deployment-location
+  inbound-tcp-rules = var.management-nsg-inbound-rules
+}
+
 # Creates the management VM and attached NIC.
 module "management-vm" {
   source          = "./modules/vm"
