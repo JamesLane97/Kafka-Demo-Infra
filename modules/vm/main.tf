@@ -1,6 +1,7 @@
 # Creates a public ip for the VM NIC.
 resource "azurerm_public_ip" "vm-public-ip" {
   name              = join("-", [var.vm-name, "public-ip"])
+  resource_group_name = var.vm-resource-group
   location          = var.vm-location
   allocation_method = "Static"
 }
