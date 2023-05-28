@@ -10,8 +10,14 @@ variable "project-name" {
 }
 
 variable "deployment-location" {
-  description = "The geological location of the projects resources"
+  description = "The geological location of the projects resources."
   type        = string
   default     = "UK South"
 
+}
+
+variable "management-vm-size" {
+  description = "The machine size for the management VM."
+  type        = string
+  default     = "Standard_B1s"
 }
