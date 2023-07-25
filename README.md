@@ -1,1 +1,1 @@
-# aker-demo
+# Kafka Demo - Infrastructure
