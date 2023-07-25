@@ -6,7 +6,7 @@ variable "deployment-enviroment" {
 variable "project-name" {
   description = "The name of the project will be used for resources."
   type        = string
-  default     = "Kafka-Demo"
+  default     = "Kafka-Demo-Infra"
 }
 
 variable "deployment-location" {
