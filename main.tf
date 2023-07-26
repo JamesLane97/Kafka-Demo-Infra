@@ -35,13 +35,21 @@ module "management-nsg" {
   inbound-tcp-rules = var.management-nsg-inbound-rules
 }
 
+module "management-vm-ssh" {
+  source          = "./modules/ssh"
+  vm-name         = join("-", [var.project-name, "management-VM"])
+  resource-group  = azurerm_resource_group.project-resource-group.name
+  deploy-location = var.deployment-location
+  parent-id       = azurerm_resource_group.project-resource-group.id
+}
+
 # Creates the management VM and attached NIC.
 module "management-vm" {
   source          = "./modules/vm"
   vm-name         = join("-", [var.project-name, "management-VM"])
   resource-group  = azurerm_resource_group.project-resource-group.name
   deploy-location = var.deployment-location
-  vm-public-key   = var.DEFAULT_SSHKEY
+  vm-public-key   = module.management-vm-ssh.public-key
   vm-size         = var.management-vm-size
   subnet-id       = azurerm_subnet.management-subnet.id
 }
