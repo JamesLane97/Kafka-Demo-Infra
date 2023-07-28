@@ -18,6 +18,7 @@ Whilst working on this personal project, I wished to achieve the following goals
  - Connect Kafka instance with a relational database.
 
 ## Cloud Infrastructure Diagram:
+![Imgur](https://i.imgur.com/EiZGCKU.png)
 
 ## Service Principle
 The service principle used by GitHub Actions must be assigned both contributer and Key Vault Administrator. Without Key Vault Administrator Terraform will be unable to destroy or make changes to deployments which include the Key Vault.
