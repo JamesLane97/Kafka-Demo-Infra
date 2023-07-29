@@ -17,7 +17,7 @@ Whilst working on this personal project, I wished to achieve the following goals
  - Develop & implement demo web app for use with Kafka
  - Connect Kafka instance with a relational database.
 
-## Cloud Infrastructure Diagram:
+## Infrastructure Plan Diagram:
 ![Infrastructure Plan](https://images2.imgbox.com/67/cf/UmAwHQRt_o.png)
 
 ## Service Principle
