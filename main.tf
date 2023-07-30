@@ -115,7 +115,7 @@ resource "azurerm_container_group" "container-group" {
     memory = 1.5
 
     ports {
-      port     = 443
+      port     = 29092
       protocol = "TCP"
     }
   }
@@ -127,7 +127,7 @@ resource "azurerm_container_group" "container-group" {
     memory = 1.5
 
     ports {
-      port     = 443
+      port     = 22181
       protocol = "TCP"
     }
   }
