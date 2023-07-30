@@ -5,7 +5,8 @@ Simple IaC used to create and manage the Azure infrastructure for my Kafka demo 
 The repo containing the demo's artefacts can be found here.
 
 ## Description:
-Whilst working on this personal project, I wished to achieve the following goals:
+
+Project Goals:
  - Employ Terraform best practices
  - Utilise modules to create flexible resuable infrastructure
  - Remote Terraform backend via Azure Storage Accounts
@@ -17,10 +18,10 @@ Whilst working on this personal project, I wished to achieve the following goals
  - Develop & implement demo web app for use with Kafka
  - Connect Kafka instance with a relational database.
 
+## Walkthrough:
+
 ## Infrastructure Plan Diagram:
 ![Infrastructure Plan](https://images2.imgbox.com/67/cf/UmAwHQRt_o.png)
 
 ## Service Principle
 The service principle used by GitHub Actions must be assigned both contributer and Key Vault Administrator. Without Key Vault Administrator Terraform will be unable to destroy or make changes to deployments which include the Key Vault.
-
-## Terraform Backend
