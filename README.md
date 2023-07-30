@@ -7,21 +7,20 @@ The repo containing the demo's artefacts can be found here.
 ## Description:
 
 Project Goals:
- - Employ Terraform best practices
+ - Employ Terraform & Azure best practices
  - Utilise modules to create flexible resuable infrastructure
  - Remote Terraform backend via Azure Storage Accounts
  - Deployed via Azure Service Principal
  - Deploy Artefacts via Ansible
  - Implement Kafka via Azure Container Instances
  - Develop & demonstrate my skills with both Python (Flask) & JavaScript (Node.js, KafkaJS)
- - Create demo consumer & producer applications with various programming & scriping languages
  - Develop & implement demo web app for use with Kafka
  - Connect Kafka instance with a relational database.
 
-## Walkthrough:
+## Infrastructure Diagram:
+Due to my LucidChart premium running out, I'm unable to add enough shapes for the final full diagram. I will update ASAP.
 
-## Infrastructure Plan Diagram:
-![Infrastructure Plan](https://images2.imgbox.com/67/cf/UmAwHQRt_o.png)
+![Infrastructure Diagram](https://imgbox.com/IT9772XU)
 
 ## Service Principle
 The service principle used by GitHub Actions must be assigned both contributer and Key Vault Administrator. Without Key Vault Administrator Terraform will be unable to destroy or make changes to deployments which include the Key Vault.
