@@ -119,4 +119,16 @@ resource "azurerm_container_group" "container-group" {
       protocol = "TCP"
     }
   }
+
+  container {
+    name   = "zookeeper"
+    image  = "mcr.microsoft.com/azuredocs/aci-helloworld"
+    cpu    = 0.5
+    memory = 1.5
+
+    ports {
+      port     = 443
+      protocol = "TCP"
+    }
+  }
 }
