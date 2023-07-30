@@ -20,7 +20,7 @@ Project Goals:
 ## Infrastructure Diagram:
 Due to my LucidChart premium running out, I'm unable to add enough shapes for the final full diagram. I will update ASAP.
 
-![Infrastructure Diagram](https://imgbox.com/IT9772XU)
+![Infrastructure Diagram](https://i.imgur.com/6FAdNNg.png)
 
 ## Service Principle
 The service principle used by GitHub Actions must be assigned both contributer and Key Vault Administrator. Without Key Vault Administrator Terraform will be unable to destroy or make changes to deployments which include the Key Vault.
