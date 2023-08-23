@@ -104,26 +104,29 @@ resource "azurerm_container_group" "container-group" {
   os_type             = "Linux"
 
   container {
-    name   = "kafka"
-    image  = "mcr.microsoft.com/azuredocs/aci-helloworld"
+    name   = "zookeeper"
+    image  = "ubuntu/zookeeper:latest"
     cpu    = 0.5
     memory = 1.5
+    environment_variables = "ZOOKEEPER_HOST=host.docker.internal ubuntu/kafka:latest"
 
     ports {
-      port     = 29092
+      port     = 2181
       protocol = "TCP"
     }
   }
 
   container {
-    name   = "zookeeper"
-    image  = "mcr.microsoft.com/azuredocs/aci-helloworld"
+    name   = "kafka"
+    image  = "ubuntu/kafka:latest"
     cpu    = 0.5
     memory = 1.5
 
     ports {
-      port     = 22181
+      port     = 9092
       protocol = "TCP"
     }
   }
+
+  
 }
