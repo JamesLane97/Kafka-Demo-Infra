@@ -47,26 +47,18 @@ resource "azurerm_key_vault" "key-vault" {
     object_id = data.azurerm_client_config.current.object_id
 
     secret_permissions = [
-      "Get",
-      "Delete",
-      "List",
-      "Set",
-      "Backup"
-    ]
+    "get", "list", "delete", "recover", "backup", "restore", "set",
+  ]
 
     key_permissions = [
-    ]
+    "get", "list", "update", "create", "import", "delete", "recover", "backup", "restore",
+  ]
+  
 
     storage_permissions = [
     ]
   }
-
-  network_acls {
-    default_action = "Allow"
-    bypass         = "AzureServices"
-  }
 }
-
 
 # Creates a NSG with inbound rules for the management subnet.
 module "management-nsg" {
@@ -110,7 +102,7 @@ resource "azurerm_container_group" "container-group" {
 
   container {
     name   = "kafka"
-    image  = "mcr.microsoft.com/azuredocs/aci-helloworld"
+    image  = "bitnami/kafka"
     cpu    = 0.5
     memory = 1.5
 
@@ -122,7 +114,7 @@ resource "azurerm_container_group" "container-group" {
 
   container {
     name   = "zookeeper"
-    image  = "mcr.microsoft.com/azuredocs/aci-helloworld"
+    image  = "bitnami/zookeeper"
     cpu    = 0.5
     memory = 1.5
 
