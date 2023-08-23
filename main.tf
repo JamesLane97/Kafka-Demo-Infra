@@ -105,7 +105,7 @@ resource "azurerm_container_group" "container-group" {
 
   container {
     name   = "kafka"
-    image  = "bitnami/kafka"
+    image  = "mcr.microsoft.com/azuredocs/aci-helloworld"
     cpu    = 0.5
     memory = 1.5
 
@@ -117,7 +117,7 @@ resource "azurerm_container_group" "container-group" {
 
   container {
     name   = "zookeeper"
-    image  = "bitnami/zookeeper"
+    image  = "mcr.microsoft.com/azuredocs/aci-helloworld"
     cpu    = 0.5
     memory = 1.5
 
