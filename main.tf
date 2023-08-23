@@ -47,17 +47,20 @@ resource "azurerm_key_vault" "key-vault" {
     object_id = data.azurerm_client_config.current.object_id
 
     secret_permissions = [
-    "get", "list", "delete", "recover", "backup", "restore", "set",
-  ]
+      "Get",
+      "Delete",
+      "List",
+      "Set",
+      "Backup"
+    ]
 
     key_permissions = [
-    "get", "list", "update", "create", "import", "delete", "recover", "backup", "restore",
-  ]
-  
+    ]
 
     storage_permissions = [
     ]
   }
+
 }
 
 # Creates a NSG with inbound rules for the management subnet.
