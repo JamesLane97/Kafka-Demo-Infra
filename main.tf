@@ -108,7 +108,6 @@ resource "azurerm_container_group" "container-group" {
     image  = "ubuntu/zookeeper:latest"
     cpu    = 0.5
     memory = 1.5
-    environment_variables = "ZOOKEEPER_HOST=host.docker.internal ubuntu/kafka:latest"
 
     ports {
       port     = 2181
@@ -121,12 +120,11 @@ resource "azurerm_container_group" "container-group" {
     image  = "ubuntu/kafka:latest"
     cpu    = 0.5
     memory = 1.5
+    environment_variables = "ZOOKEEPER_HOST=localhost:2181"
 
     ports {
       port     = 9092
       protocol = "TCP"
     }
-  }
-
-  
+  }  
 }
