@@ -120,7 +120,7 @@ resource "azurerm_container_group" "container-group" {
     image  = "ubuntu/kafka:latest"
     cpu    = 0.5
     memory = 1.5
-    environment_variables = "ZOOKEEPER_HOST=localhost:2181"
+    environment_variables = {ZOOKEEPER_HOST="localhost:2181"}
 
     ports {
       port     = 9092
