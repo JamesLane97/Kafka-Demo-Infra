@@ -11,7 +11,7 @@ resource "azurerm_container_app" "container-app" {
 
     #With revision mode set to single, traffic weight is not required. Currently unresolved in this version of Terraform.
     traffic_weight {
-      percentage = 100
+      latest_revision = true
     }
   }
 
