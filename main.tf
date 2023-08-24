@@ -105,7 +105,7 @@ module "kafka-env" {
 }
 
 #
-module "kafka-app" {
+module "kafka" {
   source = "./modules/container-app"
   depends_on = [ module.kafka-env ]
   app-name = "kafka"
@@ -117,4 +117,19 @@ module "kafka-app" {
   replicas-max = 1
   replicas-min = 1
   commands = ["/bin/sleep","infinity"]
+}
+
+module "kafka-ui" {
+  source = "./modules/container-app"
+  app-name = "kafka-ui"
+  resource-group = azurerm_resource_group.project-resource-group.name
+  env-id = module.kafka-env.container-env-id
+  image = "docker.io/provectuslabs/kafka-ui:latest"
+  cpu = 0.25
+  memory = "0.5Gi"
+  replicas-max = 1
+  replicas-min = 1
+  commands = ["/bin/sleep"]
+  args = [ ]
+  
 }
