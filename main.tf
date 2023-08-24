@@ -130,6 +130,4 @@ module "kafka-ui" {
   replicas-max = 1
   replicas-min = 1
   commands = ["/bin/sleep"]
-  args = [ ]
-  
 }

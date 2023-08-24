@@ -12,7 +12,6 @@ resource "azurerm_container_app" "container-app" {
         cpu = var.cpu
         memory = var.memory
         command = var.commands
-        args = var.args
       }
       max_replicas = var.replicas-max
       min_replicas = var.replicas-min
