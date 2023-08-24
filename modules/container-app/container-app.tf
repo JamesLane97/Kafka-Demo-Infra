@@ -13,6 +13,8 @@ resource "azurerm_container_app" "container-app" {
         memory = var.memory
         command = var.commands
       }
+      max_replicas = var.replicas-max
+      min_replicas = var.replicas-min
     }
   
 }

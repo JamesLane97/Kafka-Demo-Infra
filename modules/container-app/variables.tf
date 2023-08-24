@@ -31,4 +31,15 @@ variable "memory" {
 
 variable "commands" {
   description = ""
+  type = list(string)
+}
+
+variable "replicas-max" {
+  description = ""
+  type = number
+}
+
+variable "replicas-min" {
+  description = ""
+  type = number
 }
