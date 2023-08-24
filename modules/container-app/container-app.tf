@@ -5,6 +5,11 @@ resource "azurerm_container_app" "container-app" {
     resource_group_name = var.resource-group
     revision_mode = "Single"
 
+    ingress {
+      external_enabled = var.external
+      target_port = var.port
+    }
+
     template {
       container {
         name = var.app-name
@@ -12,7 +17,6 @@ resource "azurerm_container_app" "container-app" {
         cpu = var.cpu
         memory = var.memory
         command = var.commands
-        args = var.args
       }
       max_replicas = var.replicas-max
       min_replicas = var.replicas-min
