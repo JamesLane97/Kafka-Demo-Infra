@@ -101,7 +101,7 @@ module "kafka-env" {
   env-name = "kafka"
   resource-group = azurerm_resource_group.project-resource-group.name
   deploy-location = azurerm_resource_group.project-resource-group.location
-  retention = 7
+  retention = 30
 }
 
 #
