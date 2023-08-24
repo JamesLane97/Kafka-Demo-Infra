@@ -154,7 +154,7 @@ module "kafka-ui" {
 
 # Creating a random string for the MySQL Admin username.
 resource "random_string" "sql-rand-user" {
-  length           = 24
+  length           = 12
   special          = true
   override_special = "%@!"
 }
@@ -170,7 +170,7 @@ resource "azurerm_key_vault_secret" "mysql-username" {
 
 # Creating a random password for the MySQL Admin password.
 resource "random_password" "sql-rand-pass" {
-  length           = 24
+  length           = 12
   special          = true
   override_special = "%@!"
 }
