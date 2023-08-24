@@ -82,6 +82,7 @@ resource "azurerm_key_vault_secret" "managment-vm-private-key" {
   name         = join("-", [var.project-name, "management-vm-PK"])
   value        = tls_private_key.key-pair.private_key_openssh
   key_vault_id = azurerm_key_vault.key-vault.id
+  depends_on = [ azurerm_key_vault.key-vault ]
 }
 
 # Using the VM module to create the jumpbox/management VM and attached NIC.
@@ -149,4 +150,34 @@ module "kafka-ui" {
   replicas-max   = 1
   replicas-min   = 1
   commands       = ["/bin/sh"]
+}
+
+# Creating a random string for the MySQL Admin username.
+resource "random_string" "sql-rand-user" {
+  length = 24
+  special = true
+  override_special = "%@!"
+}
+
+# Storing the MySQL Admin username in the keyvault.
+resource "azurerm_key_vault_secret" "mysql-username" {
+  name = "mysql-username"
+  value = random_string.sql-rand-user.result
+  key_vault_id = azurerm_key_vault.key-vault.id
+  depends_on = [ azurerm_key_vault.key-vault ]
+  
+}
+
+# Creating a random password for the MySQL Admin password.
+resource "random_password" "sql-rand-pass" {
+  length = 24
+  special = true
+  override_special = "%@!"
+}
+
+resource "azurerm_key_vault_secret" "mysql-password" {
+  name = "mysql-password"
+  value = random_password.sql-rand-pass.result
+  key_vault_id = azurerm_key_vault.key-vault.id
+  depends_on = [ azurerm_key_vault.key-vault ]
 }
