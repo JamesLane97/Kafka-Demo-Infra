@@ -111,7 +111,7 @@ module "kafka" {
   app-name = "kafka"
   resource-group = azurerm_resource_group.project-resource-group.name
   env-id = module.kafka-env.container-env-id
-  image = "docker.io/ubuntu/kafka:latest"
+  image = "mcr.microsoft.com/k8se/services/kafka:3.4"
   cpu = 0.25
   memory = "0.5Gi"
   replicas-max = 1
@@ -119,15 +119,25 @@ module "kafka" {
   commands = ["/bin/sleep","infinity"]
 }
 
-module "zookeeper" {
+module "kafka-ui" {
   source = "./modules/container-app"
-  app-name = "zookeeper"
+  app-name = "kafka-ui"
   resource-group = azurerm_resource_group.project-resource-group.name
   env-id = module.kafka-env.container-env-id
-  image = "docker.io/ubuntu/zookeeper:latest"
+  image = "docker.io/provectuslabs/kafka-ui:latest"
   cpu = 0.25
   memory = "0.5Gi"
   replicas-max = 1
   replicas-min = 1
-  commands = ["/bin/sleep","infinity"]
+  commands = ["/bin/sh"]
+  args    = [
+        "-c",
+        <<EOT
+          export KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS="$KAFKA_BOOTSTRAP_SERVERS" && \
+          export KAFKA_CLUSTERS_0_PROPERTIES_SASL_JAAS_CONFIG="$KAFKA_PROPERTIES_SASL_JAAS_CONFIG" && \
+          export KAFKA_CLUSTERS_0_PROPERTIES_SASL_MECHANISM="$KAFKA_SASL_MECHANISM" && \
+          export KAFKA_CLUSTERS_0_PROPERTIES_SECURITY_PROTOCOL="$KAFKA_SECURITY_PROTOCOL" && \
+          java $JAVA_OPTS -jar kafka-ui-api.jar
+        EOT
+      ]
 }

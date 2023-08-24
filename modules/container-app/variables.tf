@@ -34,6 +34,12 @@ variable "commands" {
   type = list(string)
 }
 
+variable "args" {
+  description = ""
+  default = [ "" ]
+  type = list(string)
+}
+
 variable "replicas-max" {
   description = ""
   type = number
