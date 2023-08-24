@@ -14,14 +14,12 @@ Project Goals:
  - Remote Terraform backend via Azure Storage Accounts
  - Deployed via Azure Service Principal
  - Deploy Artefacts via Ansible
- - Implement Kafka via Azure Container Instances
+ - Implement Kafka via Containers, preferably with custom built images
  - Develop & demonstrate my skills with both Python (Flask) & JavaScript (Node.js, KafkaJS)
  - Develop & implement demo web app for use with Kafka
  - Connect Kafka instance with a relational database.
 
 ## Infrastructure Diagram:
-Due to my LucidChart premium running out, I'm unable to add enough shapes for the final full diagram. I will update ASAP.
-
 ![Infrastructure Diagram](https://i.imgur.com/E3Ec2G1.png)
 
 ## Service Principle
