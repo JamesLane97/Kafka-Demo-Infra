@@ -82,7 +82,7 @@ resource "azurerm_key_vault_secret" "managment-vm-private-key" {
   name         = join("-", [var.project-name, "management-vm-PK"])
   value        = tls_private_key.key-pair.private_key_openssh
   key_vault_id = azurerm_key_vault.key-vault.id
-  depends_on = [ azurerm_key_vault.key-vault ]
+  depends_on   = [azurerm_key_vault.key-vault]
 }
 
 # Using the VM module to create the jumpbox/management VM and attached NIC.
@@ -154,30 +154,62 @@ module "kafka-ui" {
 
 # Creating a random string for the MySQL Admin username.
 resource "random_string" "sql-rand-user" {
-  length = 24
-  special = true
+  length           = 24
+  special          = true
   override_special = "%@!"
 }
 
 # Storing the MySQL Admin username in the keyvault.
 resource "azurerm_key_vault_secret" "mysql-username" {
-  name = "mysql-username"
-  value = random_string.sql-rand-user.result
+  name         = "mysql-username"
+  value        = random_string.sql-rand-user.result
   key_vault_id = azurerm_key_vault.key-vault.id
-  depends_on = [ azurerm_key_vault.key-vault ]
-  
+  depends_on   = [azurerm_key_vault.key-vault]
+
 }
 
 # Creating a random password for the MySQL Admin password.
 resource "random_password" "sql-rand-pass" {
-  length = 24
-  special = true
+  length           = 24
+  special          = true
   override_special = "%@!"
 }
 
+# Storing the MySQL Admin password in the keyvault.
 resource "azurerm_key_vault_secret" "mysql-password" {
-  name = "mysql-password"
-  value = random_password.sql-rand-pass.result
+  name         = "mysql-password"
+  value        = random_password.sql-rand-pass.result
   key_vault_id = azurerm_key_vault.key-vault.id
-  depends_on = [ azurerm_key_vault.key-vault ]
+  depends_on   = [azurerm_key_vault.key-vault]
+}
+
+#
+resource "azurerm_mysql_server" "mysql-server" {
+  name                = join("-", [var.project-name, "mysql-server"])
+  location            = azurerm_resource_group.project-resource-group.location
+  resource_group_name = azurerm_resource_group.project-resource-group.location
+
+  administrator_login          = azurerm_key_vault_secret.mysql-username.value
+  administrator_login_password = azurerm_key_vault_secret.mysql-password.value
+
+  sku_name   = "GP_Gen5_2"
+  storage_mb = 5120
+  version    = "5.7"
+
+  auto_grow_enabled                 = true
+  backup_retention_days             = 7
+  geo_redundant_backup_enabled      = false
+  infrastructure_encryption_enabled = true
+  public_network_access_enabled     = false
+  ssl_enforcement_enabled           = true
+  ssl_minimal_tls_version_enforced  = "TLS1_2"
+}
+
+resource "azurerm_mysql_database" "mysql-database" {
+  name                = join("-", [var.project-name, "mysql-database"])
+  resource_group_name = azurerm_resource_group.project-resource-group.name
+  server_name         = azurerm_mysql_server.mysql-server.name
+  charset             = "utf8"
+  collation           = "utf8_unicode_ci"
+
 }
