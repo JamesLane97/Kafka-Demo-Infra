@@ -187,7 +187,7 @@ resource "azurerm_key_vault_secret" "mysql-password" {
 resource "azurerm_mysql_server" "mysql-server" {
   name                = join("-", [var.project-name, "mysql-server"])
   location            = azurerm_resource_group.project-resource-group.location
-  resource_group_name = azurerm_resource_group.project-resource-group.location
+  resource_group_name = azurerm_resource_group.project-resource-group.name
 
   administrator_login          = azurerm_key_vault_secret.mysql-username.value
   administrator_login_password = azurerm_key_vault_secret.mysql-password.value
