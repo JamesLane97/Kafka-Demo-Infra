@@ -95,36 +95,23 @@ module "management-vm" {
   subnet-id       = azurerm_subnet.management-subnet.id
 }
 
-# Creates the container group along with the instances for the project.
-resource "azurerm_container_group" "container-group" {
-  name                = join("-", [var.project-name, "container-group"])
-  resource_group_name = azurerm_resource_group.project-resource-group.name
-  location            = var.deployment-location
-  ip_address_type     = "Public"
-  os_type             = "Linux"
+#
+module "kafka-env" {
+  source = "./modules/container-app-environment"
+  env-name = "kafka"
+  resource-group = azurerm_resource_group.project-resource-group.name
+  deploy-location = azurerm_resource_group.project-resource-group.location
+  retention = 7
+}
 
-  container {
-    name   = "zookeeper"
-    image  = "ubuntu/zookeeper:latest"
-    cpu    = 0.5
-    memory = 1.5
-
-    ports {
-      port     = 2181
-      protocol = "TCP"
-    }
-  }
-
-  container {
-    name   = "kafka"
-    image  = "ubuntu/kafka:latest"
-    cpu    = 0.5
-    memory = 1.5
-    environment_variables = {ZOOKEEPER_HOST="localhost:2181"}
-
-    ports {
-      port     = 9092
-      protocol = "TCP"
-    }
-  }  
+#
+module "kafka-app" {
+  source = "./modules/container-app"
+  depends_on = [ module.kafka-env ]
+  app-name = "kafka"
+  resource-group = azurerm_resource_group.project-resource-group.name
+  env-id = module.kafka-env.container-env-id
+  image = "mcr.microsoft.com/k8se/services/kafka:3.4"
+  cpu = 0.5
+  memory = "0.5Gi"
 }
