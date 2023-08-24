@@ -1,5 +1,7 @@
 # Kafka Demo - Infrastructure
 
+[![Terraform Plan/Apply](https://github.com/JamesLane97/Kafka-Demo-Infra/actions/workflows/tf-plan-apply.yml/badge.svg)](https://github.com/JamesLane97/Kafka-Demo-Infra/actions/workflows/tf-plan-apply.yml)
+
 Simple IaC used to create and manage the Azure infrastructure for my Kafka demo project.
 
 The repo containing the demo's artefacts can be found here.
