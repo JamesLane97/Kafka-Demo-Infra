@@ -117,8 +117,6 @@ module "kafka" {
   replicas-max   = 1
   replicas-min   = 1
   commands       = ["/bin/sleep", "infinity"]
-  port           = 9092
-  external       = true
 }
 
 #
@@ -134,8 +132,6 @@ module "zookeeper" {
   replicas-max   = 1
   replicas-min   = 1
   commands       = ["/bin/sleep", "infinity"]
-  port           = 2181
-  external       = true
 }
 
 #
@@ -150,6 +146,4 @@ module "kafka-ui" {
   replicas-max   = 1
   replicas-min   = 1
   commands       = ["/bin/sh"]
-  port           = 8080
-  external       = true
 }

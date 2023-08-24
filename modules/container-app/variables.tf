@@ -34,18 +34,6 @@ variable "commands" {
   type        = list(string)
 }
 
-variable "external" {
-  description = ""
-  type        = bool
-  default     = false
-}
-
-variable "port" {
-  description = ""
-  type        = number
-
-}
-
 variable "replicas-max" {
   description = ""
   type        = number
