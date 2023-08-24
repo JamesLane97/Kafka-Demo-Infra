@@ -1,12 +1,12 @@
 variable "deployment-enviroment" {
   description = "The name of the enviroment the resources will be deployed in (Dev/Test/Prod). Used for naming and tagging resources."
   type        = string
-  default     = "Dev"
+  default     = "dev"
 }
 variable "project-name" {
   description = "The name of the project will be used for resources."
   type        = string
-  default     = "Kafka-Demo"
+  default     = "kafka-demo"
 }
 
 variable "deployment-location" {
