@@ -11,6 +11,7 @@ resource "azurerm_container_app" "container-app" {
         image = var.image
         cpu = var.cpu
         memory = var.memory
+        command = var.commands
       }
     }
   

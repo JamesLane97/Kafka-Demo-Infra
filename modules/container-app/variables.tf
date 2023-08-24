@@ -28,3 +28,7 @@ variable "memory" {
     description = ""
     type = string
 }
+
+variable "commands" {
+  description = ""
+}

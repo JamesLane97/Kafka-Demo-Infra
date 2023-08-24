@@ -114,4 +114,5 @@ module "kafka-app" {
   image = "mcr.microsoft.com/k8se/services/kafka:3.4"
   cpu = 0.25
   memory = "0.5Gi"
+  commands = ["/bin/sleep","infinity"]
 }
