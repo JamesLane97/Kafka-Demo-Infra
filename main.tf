@@ -97,59 +97,59 @@ module "management-vm" {
 
 #
 module "kafka-env" {
-  source = "./modules/container-app-environment"
-  env-name = "kafka"
-  resource-group = azurerm_resource_group.project-resource-group.name
+  source          = "./modules/container-app-environment"
+  env-name        = "kafka"
+  resource-group  = azurerm_resource_group.project-resource-group.name
   deploy-location = azurerm_resource_group.project-resource-group.location
-  retention = 30
+  retention       = 30
 }
 
 #
 module "kafka" {
-  source = "./modules/container-app"
-  depends_on = [ module.kafka-env ]
-  app-name = "kafka"
+  source         = "./modules/container-app"
+  depends_on     = [module.kafka-env]
+  app-name       = "kafka"
   resource-group = azurerm_resource_group.project-resource-group.name
-  env-id = module.kafka-env.container-env-id
-  image = "mcr.microsoft.com/k8se/services/kafka:3.4"
-  cpu = 0.25
-  memory = "0.5Gi"
-  replicas-max = 1
-  replicas-min = 1
-  commands = ["/bin/sleep","infinity"]
-  port = 9092
-  external = true
+  env-id         = module.kafka-env.container-env-id
+  image          = "mcr.microsoft.com/k8se/services/kafka:3.4"
+  cpu            = 0.25
+  memory         = "0.5Gi"
+  replicas-max   = 1
+  replicas-min   = 1
+  commands       = ["/bin/sleep", "infinity"]
+  port           = 9092
+  external       = true
 }
 
 #
 module "zookeeper" {
-  source = "./modules/container-app"
-  depends_on = [ module.kafka-env ]
-  app-name = "zookeeper"
+  source         = "./modules/container-app"
+  depends_on     = [module.kafka-env]
+  app-name       = "zookeeper"
   resource-group = azurerm_resource_group.project-resource-group.name
-  env-id = module.kafka-env.container-env-id
-  image = "docker.io/ubuntu/zookeeper:latest"
-  cpu = 0.25
-  memory = "0.5Gi"
-  replicas-max = 1
-  replicas-min = 1
-  commands = ["/bin/sleep","infinity"]
-  port = 2181
-  external = true
+  env-id         = module.kafka-env.container-env-id
+  image          = "docker.io/ubuntu/zookeeper:latest"
+  cpu            = 0.25
+  memory         = "0.5Gi"
+  replicas-max   = 1
+  replicas-min   = 1
+  commands       = ["/bin/sleep", "infinity"]
+  port           = 2181
+  external       = true
 }
 
 #
 module "kafka-ui" {
-  source = "./modules/container-app"
-  app-name = "kafka-ui"
+  source         = "./modules/container-app"
+  app-name       = "kafka-ui"
   resource-group = azurerm_resource_group.project-resource-group.name
-  env-id = module.kafka-env.container-env-id
-  image = "docker.io/provectuslabs/kafka-ui:latest"
-  cpu = 0.25
-  memory = "0.5Gi"
-  replicas-max = 1
-  replicas-min = 1
-  commands = ["/bin/sh"]
-  port = 8080
-  external = true
+  env-id         = module.kafka-env.container-env-id
+  image          = "docker.io/provectuslabs/kafka-ui:latest"
+  cpu            = 0.25
+  memory         = "0.5Gi"
+  replicas-max   = 1
+  replicas-min   = 1
+  commands       = ["/bin/sh"]
+  port           = 8080
+  external       = true
 }

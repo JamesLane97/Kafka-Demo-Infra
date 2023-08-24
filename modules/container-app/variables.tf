@@ -9,49 +9,49 @@ variable "resource-group" {
 }
 
 variable "env-id" {
-    description = ""
-    type = string
-  
+  description = ""
+  type        = string
+
 }
 
 variable "image" {
-    description = ""
-    type = string  
+  description = ""
+  type        = string
 }
 
 variable "cpu" {
-    description = ""
-    type = number
+  description = ""
+  type        = number
 }
 
 variable "memory" {
-    description = ""
-    type = string
+  description = ""
+  type        = string
 }
 
 variable "commands" {
   description = ""
-  type = list(string)
+  type        = list(string)
 }
 
 variable "external" {
   description = ""
-  type = bool
-  default = false
+  type        = bool
+  default     = false
 }
 
 variable "port" {
   description = ""
-  type = number
-  
+  type        = number
+
 }
 
 variable "replicas-max" {
   description = ""
-  type = number
+  type        = number
 }
 
 variable "replicas-min" {
   description = ""
-  type = number
+  type        = number
 }
