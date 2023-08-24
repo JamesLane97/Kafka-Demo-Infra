@@ -111,7 +111,7 @@ module "kafka" {
   app-name = "kafka"
   resource-group = azurerm_resource_group.project-resource-group.name
   env-id = module.kafka-env.container-env-id
-  image = "mcr.microsoft.com/k8se/services/kafka:3.4"
+  image = "docker.io/ubuntu/kafka:latest"
   cpu = 0.25
   memory = "0.5Gi"
   replicas-max = 1
@@ -119,15 +119,15 @@ module "kafka" {
   commands = ["/bin/sleep","infinity"]
 }
 
-module "kafka-ui" {
+module "zookeeper" {
   source = "./modules/container-app"
-  app-name = "kafka-ui"
+  app-name = "zookeeper"
   resource-group = azurerm_resource_group.project-resource-group.name
   env-id = module.kafka-env.container-env-id
-  image = "docker.io/provectuslabs/kafka-ui:latest"
+  image = "docker.io/ubuntu/zookeeper:latest"
   cpu = 0.25
   memory = "0.5Gi"
   replicas-max = 1
   replicas-min = 1
-  commands = ["/bin/sleep"]
+  commands = ["/bin/sleep","infinity"]
 }
