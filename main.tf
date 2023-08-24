@@ -61,12 +61,7 @@ resource "azurerm_key_vault" "key-vault" {
     ]
   }
 
-  network_acls {
-    default_action = "Allow"
-    bypass         = "AzureServices"
-  }
 }
-
 
 # Creates a NSG with inbound rules for the management subnet.
 module "management-nsg" {
@@ -100,35 +95,55 @@ module "management-vm" {
   subnet-id       = azurerm_subnet.management-subnet.id
 }
 
-# Creates the container group along with the instances for the project.
-resource "azurerm_container_group" "container-group" {
-  name                = join("-", [var.project-name, "container-group"])
-  resource_group_name = azurerm_resource_group.project-resource-group.name
-  location            = var.deployment-location
-  ip_address_type     = "Public"
-  os_type             = "Linux"
+#
+module "kafka-env" {
+  source          = "./modules/container-app-environment"
+  env-name        = "kafka"
+  resource-group  = azurerm_resource_group.project-resource-group.name
+  deploy-location = azurerm_resource_group.project-resource-group.location
+  retention       = 30
+}
 
-  container {
-    name   = "kafka"
-    image  = "mcr.microsoft.com/azuredocs/aci-helloworld"
-    cpu    = 0.5
-    memory = 1.5
+#
+module "kafka" {
+  source         = "./modules/container-app"
+  depends_on     = [module.kafka-env]
+  app-name       = "kafka"
+  resource-group = azurerm_resource_group.project-resource-group.name
+  env-id         = module.kafka-env.container-env-id
+  image          = "mcr.microsoft.com/k8se/services/kafka:3.4"
+  cpu            = 0.25
+  memory         = "0.5Gi"
+  replicas-max   = 1
+  replicas-min   = 1
+  commands       = ["/bin/sleep", "infinity"]
+}
 
-    ports {
-      port     = 29092
-      protocol = "TCP"
-    }
-  }
+#
+module "zookeeper" {
+  source         = "./modules/container-app"
+  depends_on     = [module.kafka-env]
+  app-name       = "zookeeper"
+  resource-group = azurerm_resource_group.project-resource-group.name
+  env-id         = module.kafka-env.container-env-id
+  image          = "docker.io/ubuntu/zookeeper:latest"
+  cpu            = 0.25
+  memory         = "0.5Gi"
+  replicas-max   = 1
+  replicas-min   = 1
+  commands       = ["/bin/sleep", "infinity"]
+}
 
-  container {
-    name   = "zookeeper"
-    image  = "mcr.microsoft.com/azuredocs/aci-helloworld"
-    cpu    = 0.5
-    memory = 1.5
-
-    ports {
-      port     = 22181
-      protocol = "TCP"
-    }
-  }
+#
+module "kafka-ui" {
+  source         = "./modules/container-app"
+  app-name       = "kafka-ui"
+  resource-group = azurerm_resource_group.project-resource-group.name
+  env-id         = module.kafka-env.container-env-id
+  image          = "docker.io/provectuslabs/kafka-ui:latest"
+  cpu            = 0.25
+  memory         = "0.5Gi"
+  replicas-max   = 1
+  replicas-min   = 1
+  commands       = ["/bin/sh"]
 }
