@@ -112,6 +112,6 @@ module "kafka-app" {
   resource-group = azurerm_resource_group.project-resource-group.name
   env-id = module.kafka-env.container-env-id
   image = "mcr.microsoft.com/k8se/services/kafka:3.4"
-  cpu = 0.5
+  cpu = 0.25
   memory = "0.5Gi"
 }
