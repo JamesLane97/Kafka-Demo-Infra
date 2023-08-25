@@ -1,4 +1,4 @@
-#
+# Creating the container app using provided variables. Currently lacking ingress configuration & limited replication.
 resource "azurerm_container_app" "container-app" {
   name                         = join("-", [var.app-name, "container-app"])
   container_app_environment_id = var.env-id

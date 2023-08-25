@@ -26,7 +26,7 @@ resource "azurerm_subnet" "management-subnet" {
   address_prefixes     = ["10.0.2.0/25"]
 }
 
-# A data source containg the configuration of the AzureRM provider, subscription or tentant ID's for example.
+# A data source containing the configuration of the AzureRM provider, subscription or tentant ID's for example.
 data "azurerm_client_config" "current" {}
 
 # Creates the key vault.
@@ -183,7 +183,7 @@ resource "azurerm_key_vault_secret" "mysql-password" {
   depends_on   = [azurerm_key_vault.key-vault]
 }
 
-#
+# Creating the MySQL server.
 resource "azurerm_mysql_server" "mysql-server" {
   name                = join("-", [var.project-name, "mysql-server"])
   location            = azurerm_resource_group.project-resource-group.location
@@ -206,6 +206,7 @@ resource "azurerm_mysql_server" "mysql-server" {
   depends_on = [ azurerm_key_vault_secret.mysql-password ]
 }
 
+# Creating the MySQL database.
 resource "azurerm_mysql_database" "mysql-database" {
   name                = join("-", [var.project-name, "mysql-database"])
   resource_group_name = azurerm_resource_group.project-resource-group.name
